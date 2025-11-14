@@ -1,3 +1,5 @@
+import { SectionLink } from "./SectionLink";
+
 const HERO_STATS = [
   {
     value: "Canada-wide",
@@ -33,18 +35,18 @@ export function Hero() {
             experiences and SaaS platforms that keep teams moving securely—wherever your practice is based.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6 lg:items-center lg:justify-start">
-            <a
-              href="#contact"
+            <SectionLink
+              section="contact"
               className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand-navy shadow-lg transition hover:bg-brand-accent hover:text-white"
             >
               Book a discovery call
-            </a>
-            <a
-              href="#services"
+            </SectionLink>
+            <SectionLink
+              section="services"
               className="inline-flex items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
             >
               Explore our services
-            </a>
+            </SectionLink>
           </div>
         </div>
         <div className="mx-auto flex flex-1 max-w-2xl flex-col gap-6 rounded-3xl border border-white/15 bg-white/10 p-8 shadow-2xl backdrop-blur xl:mx-0">

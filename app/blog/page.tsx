@@ -1,7 +1,8 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { BLOG_POSTS } from "../../lib/content";
+import { SectionLink } from "../../components/SectionLink";
 
 export const metadata: Metadata = {
   title: "Insights from Shosh Technologies | Blog",
@@ -62,9 +63,12 @@ export default function BlogIndexPage() {
       </div>
       <footer className="rounded-3xl border border-brand-accent/15 bg-brand-light/60 p-8 text-center text-sm text-brand-navy shadow-soft dark:border-brand-accent/20 dark:bg-gray-900/70 dark:text-gray-200">
         Looking for a specific topic?{" "}
-        <Link href="/#contact" className="font-semibold text-brand-accent hover:text-brand-navy dark:hover:text-brand-accent">
+        <SectionLink
+          section="contact"
+          className="font-semibold text-brand-accent hover:text-brand-navy dark:hover:text-brand-accent"
+        >
           Start a conversation with our team.
-        </Link>
+        </SectionLink>
       </footer>
     </div>
   );

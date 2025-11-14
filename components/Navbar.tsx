@@ -1,23 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ThemeToggle } from "./ThemeToggle";
+import { useEffect, useState, type MouseEvent } from "react";
+import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 import { cn } from "../lib/utils";
+import {
+  navigateToSection,
+  parseSectionFromHash,
+  parseSectionFromSearch,
+  SECTION_IDS,
+  removeSectionParamFromUrl
+} from "../lib/sectionNavigation";
 
 const NAV_ITEMS = [
-  { label: "Home", href: "/#home" },
-  { label: "About", href: "/#about" },
-  { label: "Services", href: "/#services" },
-  { label: "Products", href: "/#products" },
-  { label: "Blog", href: "/#blog" },
-  { label: "Contact", href: "/#contact" }
-];
+  { label: "Home", section: "home" },
+  { label: "About", section: "about" },
+  { label: "Services", section: "services" },
+  { label: "Products", section: "products" },
+  { label: "Blog", section: "blog" },
+  { label: "Contact", section: "contact" }
+] as const;
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("/#home");
+  const [activeSection, setActiveSection] = useState<string>("home");
+  const pathname = usePathname();
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -42,6 +50,61 @@ export function Navbar() {
     document.documentElement.style.overflow = "";
   }, [isMenuOpen]);
 
+  const handleNavClick = (
+    event: MouseEvent<HTMLAnchorElement | HTMLButtonElement> | undefined,
+    section: string
+  ) => {
+    if (!SECTION_IDS.has(section)) {
+      return;
+    }
+
+    event?.preventDefault();
+    setActiveSection(section);
+    navigateToSection(section);
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    if (pathname && pathname !== "/") {
+      return;
+    }
+
+    const hashSection = parseSectionFromHash(window.location.hash);
+    const searchSection = parseSectionFromSearch(window.location.search);
+    const initialSection = hashSection ?? searchSection;
+
+    if (!initialSection) {
+      if (searchSection) {
+        removeSectionParamFromUrl();
+      }
+      return;
+    }
+
+    if (!SECTION_IDS.has(initialSection)) {
+      if (searchSection) {
+        removeSectionParamFromUrl();
+      }
+      return;
+    }
+
+    setActiveSection(initialSection);
+
+    const behavior = hashSection ? "auto" : "smooth";
+    const scrollToInitialSection = () => {
+      navigateToSection(initialSection, { behavior });
+    };
+
+    if (typeof window.requestAnimationFrame === "function") {
+      window.requestAnimationFrame(scrollToInitialSection);
+    } else {
+      scrollToInitialSection();
+    }
+  }, [pathname]);
+
   useEffect(() => {
     if (typeof window === "undefined") {
       return;
@@ -51,7 +114,7 @@ export function Navbar() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(`/#${entry.target.id}`);
+            setActiveSection(entry.target.id);
           }
         });
       },
@@ -62,8 +125,7 @@ export function Navbar() {
     );
 
     NAV_ITEMS.forEach((item) => {
-      const id = item.href.split("#")[1];
-      const element = document.getElementById(id);
+      const element = document.getElementById(item.section);
       if (element) {
         observer.observe(element);
       }
@@ -71,20 +133,6 @@ export function Navbar() {
 
     return () => observer.disconnect();
   }, []);
-
-  const handleNavClick = (href?: string) => {
-    if (href) {
-      setActiveSection(href);
-      if (typeof window !== "undefined" && href.startsWith("/#")) {
-        const id = href.split("#")[1];
-        const target = document.getElementById(id);
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    }
-    setIsMenuOpen(false);
-  };
 
   return (
     <header
@@ -97,9 +145,9 @@ export function Navbar() {
     >
       <div className="container-responsive flex items-center justify-between py-4">
         <a
-          href="/#home"
+          href="/"
           className="flex items-center gap-3 text-lg font-semibold uppercase tracking-widest text-brand-navy dark:text-white"
-          onClick={() => handleNavClick("/#home")}
+          onClick={(event) => handleNavClick(event, "home")}
         >
           <span className="sr-only">Shosh Technologies</span>
           <Logo className="h-10 w-auto" />
@@ -107,27 +155,26 @@ export function Navbar() {
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
           {NAV_ITEMS.map((item) => (
             <a
-              key={item.href}
-              href={item.href}
+              key={item.section}
+              href={item.section === "home" ? "/" : `/?section=${item.section}`}
               className={cn(
                 "text-sm font-medium transition-colors hover:text-brand-accent dark:hover:text-brand-accent",
-                activeSection === item.href
+                activeSection === item.section
                   ? "text-brand-accent"
                   : "text-gray-700 dark:text-gray-200"
               )}
-              aria-current={activeSection === item.href ? "page" : undefined}
-              onClick={() => handleNavClick(item.href)}
+              aria-current={activeSection === item.section ? "page" : undefined}
+              onClick={(event) => handleNavClick(event, item.section)}
             >
               {item.label}
             </a>
           ))}
         </nav>
         <div className="flex items-center gap-2 lg:gap-4">
-          <ThemeToggle />
           <button
             type="button"
             className="hidden h-11 items-center justify-center rounded-full border border-brand-accent px-5 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-accent hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent sm:inline-flex dark:text-white"
-            onClick={() => handleNavClick("/#contact")}
+            onClick={(event) => handleNavClick(event, "contact")}
           >
             Start a Project
           </button>
@@ -176,16 +223,16 @@ export function Navbar() {
         <nav className="container-responsive flex flex-col gap-4 pb-6 pt-4" aria-label="Primary mobile">
           {NAV_ITEMS.map((item) => (
             <a
-              key={item.href}
-              href={item.href}
+              key={item.section}
+              href={item.section === "home" ? "/" : `/?section=${item.section}`}
               className={cn(
                 "rounded-lg border border-gray-200 bg-white/80 px-4 py-3 text-base font-medium transition hover:bg-brand-accent hover:text-white dark:border-gray-800 dark:bg-gray-900/80 dark:text-gray-100 dark:hover:bg-brand-accent",
-                activeSection === item.href
+                activeSection === item.section
                   ? "border-brand-accent text-brand-accent dark:text-brand-accent"
                   : "text-brand-navy"
               )}
-              aria-current={activeSection === item.href ? "page" : undefined}
-              onClick={() => handleNavClick(item.href)}
+              aria-current={activeSection === item.section ? "page" : undefined}
+              onClick={(event) => handleNavClick(event, item.section)}
             >
               {item.label}
             </a>
@@ -193,7 +240,7 @@ export function Navbar() {
           <button
             type="button"
             className="inline-flex items-center justify-center rounded-full bg-brand-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
-            onClick={() => handleNavClick("/#contact")}
+            onClick={(event) => handleNavClick(event, "contact")}
           >
             Start a Project
           </button>

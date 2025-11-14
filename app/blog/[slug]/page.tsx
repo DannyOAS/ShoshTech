@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
 import { BLOG_POSTS, getBlogPostBySlug } from "../../../lib/content";
+import { SectionLink } from "../../../components/SectionLink";
 
 type BlogPostPageProps = {
   params: {
@@ -77,12 +78,12 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         <footer className="space-y-6 rounded-3xl border border-brand-accent/15 bg-brand-light/60 p-6 text-center text-sm text-brand-navy shadow-soft dark:border-brand-accent/20 dark:bg-gray-900/70 dark:text-gray-200">
           <p>
             Have a use-case you want to explore?{" "}
-            <Link
-              href="/#contact"
+            <SectionLink
+              section="contact"
               className="font-semibold text-brand-accent hover:text-brand-navy dark:hover:text-brand-accent"
             >
               Book a discovery call.
-            </Link>
+            </SectionLink>
           </p>
           <Link
             href="/blog"

@@ -14,13 +14,18 @@ export function Logo({
   const isDark = theme === "dark";
 
   return (
-    <Image
-      src="/assets/Shosh-logo.png"
-      alt="Shosh Technologies logo"
-      width={140}
-      height={40}
-      priority
-      className={cn("h-10 w-auto transition-opacity duration-300", className)}
-    />
+    <div className={cn("flex items-center gap-3", className)}>
+      <Image
+        src="/assets/Shosh-logo.png"
+        alt="Shosh Technologies logo"
+        width={140}
+        height={40}
+        priority
+        className="h-10 w-auto transition-opacity duration-300"
+      />
+      <span className="text-base font-medium text-brand-navy dark:text-white sm:text-lg">
+        Shosh Technologies Inc.
+      </span>
+    </div>
   );
 }

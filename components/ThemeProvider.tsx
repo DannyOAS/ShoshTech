@@ -19,8 +19,6 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-const THEME_STORAGE_KEY = "shosh-theme";
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
 
@@ -38,28 +36,39 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (typeof window === "undefined") {
       return;
     }
-    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY) as
-      | Theme
-      | null;
-    if (storedTheme) {
-      applyTheme(storedTheme);
-      setThemeState(storedTheme);
-      return;
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const resolveTheme = (matches: boolean) => (matches ? "dark" : "light");
+    const updateTheme = (matches: boolean) => {
+      const resolvedTheme = resolveTheme(matches);
+      setThemeState(resolvedTheme);
+      applyTheme(resolvedTheme);
+    };
+
+    updateTheme(mediaQuery.matches);
+
+    const listener = (event: MediaQueryListEvent) => {
+      updateTheme(event.matches);
+    };
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", listener);
+    } else {
+      mediaQuery.addListener(listener);
     }
 
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initialTheme: Theme = prefersDark ? "dark" : "light";
-    applyTheme(initialTheme);
-    setThemeState(initialTheme);
+    return () => {
+      if (typeof mediaQuery.removeEventListener === "function") {
+        mediaQuery.removeEventListener("change", listener);
+      } else {
+        mediaQuery.removeListener(listener);
+      }
+    };
   }, [applyTheme]);
 
   const setTheme = useCallback(
     (themeValue: Theme) => {
       setThemeState(themeValue);
       applyTheme(themeValue);
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem(THEME_STORAGE_KEY, themeValue);
-      }
     },
     [applyTheme]
   );

@@ -1,4 +1,5 @@
 import { BLOG_POSTS } from "../lib/content";
+import { SectionLink } from "./SectionLink";
 
 export function BlogSection() {
   return (
@@ -17,8 +18,8 @@ export function BlogSection() {
               software for Canadian professional teams.
             </p>
           </div>
-          <a
-            href="/#contact"
+          <SectionLink
+            section="contact"
             className="inline-flex items-center gap-2 rounded-full border border-brand-accent px-5 py-3 text-sm font-semibold text-brand-navy transition hover:bg-brand-accent hover:text-white dark:text-white"
           >
             Request blog updates
@@ -32,7 +33,7 @@ export function BlogSection() {
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12l-3.75 3.75M21 12H3" />
             </svg>
-          </a>
+          </SectionLink>
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {BLOG_POSTS.map((post) => (

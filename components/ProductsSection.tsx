@@ -1,3 +1,5 @@
+import { SectionLink } from "./SectionLink";
+
 const PRODUCTS = [
   {
     name: "Shosh Booking",
@@ -15,17 +17,18 @@ const PRODUCTS = [
         d="M8.25 6.75v-1.5A2.25 2.25 0 0 1 10.5 3h3a2.25 2.25 0 0 1 2.25 2.25v1.5m3 0h-12a2.25 2.25 0 0 0-2.25 2.25v8.25A2.25 2.25 0 0 0 6.75 21h10.5a2.25 2.25 0 0 0 2.25-2.25V9a2.25 2.25 0 0 0-2.25-2.25Z"
       />
     ),
-    link: "/#contact",
+    link: "https://shoshapp.com",
     cta: "Learn More"
   },
   {
-    name: "Maple Legal Suite",
+    name: "Maple CaseFiles",
     description:
-      "A legal operations toolkit helping Canadian law practices automate document workflows, client communication, and compliance reporting.",
+      "Maple CaseFiles is a cloud platform built for Canadian firms and solo lawyers. It combines a smart case tracker, secure client portal, e-signatures, automated billing, and AI-assisted contract review, all backed by Canadian data residency and PHIPA/PIPEDA compliance. We’re welcoming a limited pilot cohort with concierge setup so you can modernize client experience without new admin overhead.",
     highlights: [
-      "Document automation templates",
-      "Secure client portal",
-      "Compliance-ready audit trails"
+      "Smart case tracker & secure client portal",
+      "Built-in document signing and automated billing",
+      "AI-assisted contract analysis with Canadian data residency",
+      "Limited pilot with concierge onboarding support"
     ],
     icon: (
       <path
@@ -34,7 +37,7 @@ const PRODUCTS = [
         d="M15.75 5.25H19.5m-3.75 0V9m0-3.75H12m7.5 7.5H19.5m0 0V9m0 0h-3.75m0 0V5.25M8.625 9.75l1.125 1.125L12 8.625m0 0l2.25 2.25L15.375 9.75M4.5 4.5l6.682 11.119a.75.75 0 0 0 1.296 0L19.5 4.5"
       />
     ),
-    link: "/#contact",
+    link: "https://maplecasefiles.ca",
     cta: "Learn More"
   }
 ];
@@ -92,6 +95,8 @@ export function ProductsSection() {
               <div className="mt-8">
                 <a
                   href={product.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full bg-brand-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-accent"
                 >
                   {product.cta}
