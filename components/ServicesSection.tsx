@@ -47,11 +47,12 @@ const SERVICES: Service[] = [
   {
     title: "Custom web & software development",
     description:
-      "Full-stack engineering support to design, build, and launch performant web platforms tailored to your workflow.",
+      "SaaS platforms, client portals, internal dashboards, and business tools. Built with modern tech stacks, designed to scale, secured from day one.",
     points: [
-      "Discovery, UX, and prototyping",
-      "Scalable architecture & APIs",
-      "Security and privacy by design"
+      "Full-stack web applications & APIs",
+      "Multi-tenant SaaS platforms",
+      "PIPEDA-compliant with Canadian data residency",
+      "Security testing throughout development"
     ],
     icon: "code-bracket"
   },
@@ -78,24 +79,26 @@ const SERVICES: Service[] = [
     icon: "lightbulb"
   },
   {
-    title: "Secure SaaS launch bundle",
+    title: "AI Chatbots & Automation",
     description:
-      "Holistic security and compliance support to take your new platform to market without surprises.",
+      "24/7 customer service, lead capture, appointment booking, and internal help desks. Custom-built for your business with Canadian data residency.",
     points: [
-      "Threat modeling & architecture hardening",
-      "DevSecOps tooling and guardrails",
-      "SOC 2 & PIPEDA readiness roadmap"
+      "Natural language processing for your business",
+      "Appointment booking & lead qualification",
+      "Integration with existing systems (CRM, calendar)",
+      "Bilingual support (English/French)"
     ],
     icon: "badge"
   },
   {
-    title: "Cyber resilience starter",
+    title: "AODA-Compliant Websites",
     description:
-      "Jump-start your security posture with tailored assessments, enablement, and response planning.",
+      "Accessible websites for Ontario organizations. Avoid $100K/day fines while reaching 2.6M more customers. Audit existing sites or build new.",
     points: [
-      "Baseline security & privacy assessment",
-      "Security awareness & phishing simulation",
-      "Incident response playbook + tabletop"
+      "WCAG 2.0 Level AA compliance",
+      "Screen reader & keyboard navigation",
+      "Compliance documentation for AODA reports",
+      "Staff training on maintaining accessibility"
     ],
     icon: "shield"
   }

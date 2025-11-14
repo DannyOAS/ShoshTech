@@ -2,16 +2,16 @@ import { SectionLink } from "./SectionLink";
 
 const HERO_STATS = [
   {
-    value: "Canada-wide",
+    value: "Ontario-based",
     label: "Partnering with professional teams from coast to coast"
+  },
+  {
+    value: "40+ applications built",
+    label: "PIPEDA & AODA compliant with zero breaches"
   },
   {
     value: "Privacy-first",
     label: "Delivering compliant, client-trusted digital experiences"
-  },
-  {
-    value: "Rapid delivery",
-    label: "Collaborative sprints that ship value in weeks"
   }
 ];
 
@@ -28,7 +28,7 @@ export function Hero() {
             Serving clients across Canada
           </span>
           <h1 className="mt-6 text-3xl font-semibold leading-tight sm:text-5xl">
-            Empowering professionals with smarter software.
+            We Build Web Applications That Don't Get Hacked
           </h1>
           <p className="mt-6 text-base text-white/80 sm:text-lg">
             Shosh Technologies partners with ambitious firms to design privacy-first digital
