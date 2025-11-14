@@ -29,8 +29,8 @@ export function ContactSection() {
             </p>
             <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
               Prefer email?{" "}
-              <a href="mailto:hello@shoshtech.com" className="font-semibold text-brand-accent">
-                hello@shoshtech.com
+              <a href="mailto:daniel.sarpong@shoshtech.ca" className="font-semibold text-brand-accent">
+                daniel.sarpong@shoshtech.ca
               </a>
             </p>
           </div>

@@ -15,7 +15,7 @@ export function Logo({
 
   return (
     <Image
-      src={isDark ? "/assets/shosh-logo-white.png" : "/assets/shosh-logo-black.png"}
+      src="/assets/Shosh-logo.png"
       alt="Shosh Technologies logo"
       width={140}
       height={40}

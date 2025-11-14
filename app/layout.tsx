@@ -12,7 +12,7 @@ const inter = Inter({
   display: "swap"
 });
 
-const siteUrl = "https://www.shoshtech.com";
+const siteUrl = "https://www.shoshtech.ca";
 const siteTitle = "Shosh Technologies Inc. | Privacy-first Software & SaaS from Toronto";
 const siteDescription =
   "Shosh Technologies Inc. builds privacy-first software platforms and SaaS products for professionals, delivering secure, user-friendly solutions from Toronto, Canada.";
@@ -39,6 +39,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: siteUrl
+  },
+  icons: {
+    icon: "/assets/Shosh-logo.png",
+    shortcut: "/assets/Shosh-logo.png",
+    apple: "/assets/Shosh-logo.png"
   },
   authors: [{ name: "Shosh Technologies Inc." }],
   category: "technology",

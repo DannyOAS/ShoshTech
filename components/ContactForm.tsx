@@ -144,8 +144,8 @@ export function ContactForm() {
       {status === "error" && errorMessage && (
         <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-900/60 dark:bg-rose-900/40 dark:text-rose-200">
           {errorMessage} You can also email{" "}
-          <a href="mailto:hello@shoshtech.com" className="font-semibold underline">
-            hello@shoshtech.com
+          <a href="mailto:daniel.sarpong@shoshtech.ca" className="font-semibold underline">
+            daniel.sarpong@shoshtech.ca
           </a>
           .
         </p>
